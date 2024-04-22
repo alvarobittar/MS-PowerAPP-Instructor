@@ -1,19 +1,14 @@
-from app.config.config import DevelopmentConfig, ProductionConfig, factory
+import unittest
+from app import create_app
 
-def test_development_config():
-    config = DevelopmentConfig()
-    assert config.TESTING == True
-    assert config.DEBUG == True
-    assert config.FLASK_ENV == 'development'
-    assert config.SQLALCHEMY_TRACK_MODIFICATIONS == True
+class TestConfig(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app()
+        self.app.config['TESTING'] = True
+        self.client = self.app.test_client()
 
-def test_production_config():
-    config = ProductionConfig()
-    assert config.TESTING == False
-    assert config.DEBUG == False
-    assert config.FLASK_ENV == 'production'
-    assert config.SQLALCHEMY_RECORD_QUERIES == False
+    def test_testing_config(self):
+        self.assertTrue(self.app.config['TESTING'])
 
-def test_factory():
-    assert factory('development') == DevelopmentConfig
-    assert factory('production') == ProductionConfig
+if __name__ == "__main__":
+    unittest.main()

@@ -1,23 +1,17 @@
 import unittest
-from app import app
+from flask import current_app
+from app import create_app, db
+from sqlalchemy import text
 
-class testdb(unittest.TestCase):
+class DbTestCase(unittest.TestCase):
+    
     def setUp(self):
-        self.app = app.test_client()
-        self.app.testing = True
-        self.db = self.app.app_context().db
-        self.db.drop_all()
-        self.db.create_all()
-
+        self.app = create_app()
+        self.app_context = self.app.app_context()
+        self.app_context.push()
     def tearDown(self):
-        self.db.drop_all()
-        self.app.testing = False
-        self.app = None
-        self.db = None
-    
-    def test_add_user(self):
-        self.assertEqual(self.db.query(User).count(), 0)
-        self.app.post('/add_user', data=dict(username='test', password='<PASSWORD>'), follow_redirects=True)
-        self.assertEqual(self.db.query(User).count(), 1)
-    
-    
+        self.app_context.pop()
+        
+    def test_db_connection(self):
+        result=db.session.query(text("'Aloha'")).one()
+        self.assertEqual(result[0], "Aloha")

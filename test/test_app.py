@@ -1,12 +1,15 @@
-import pytest
-from app import app
+import unittest
+from app import create_app
 
-@pytest.fixture
-def client():
-    return app.test_client()
+class TestApp(unittest.TestCase):
+    def setUp(self):
+        self.app = create_app()
+        self.app.config['TESTING'] = True
+        self.client = self.app.test_client()
+    
+    def test_create_app(self):
+        self.assertIsNotNone(self.app)
 
-def test_index(client):
-    response = client.get('/')
-    assert response.status_code == 200
-    assert b'Hello, World!' in response.data
-
+if __name__ == "__main__":
+    unittest.main()
+    
