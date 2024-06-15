@@ -1,6 +1,5 @@
-from asyncio.log import logger
-from dotenv import load_dotenv
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
 basedir = os.path.abspath(Path(__file__).parents[2])
@@ -21,6 +20,7 @@ class DevelopmentConfig(Config):
     FLASK_ENV = 'development'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URI')
+
         
 class ProductionConfig(Config):
     FLASK_ENV = 'production'
@@ -40,3 +40,7 @@ def factory(app):
     }
     
     return configuration[app];
+
+
+
+

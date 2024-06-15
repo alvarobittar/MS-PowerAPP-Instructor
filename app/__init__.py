@@ -43,7 +43,7 @@ def create_app():
     
     
     cache.init_app(app, config={'CACHE_TYPE': 'RedisCache', 'CACHE_DEFAULT_TIMEOUT': 300, 
-                            'CACHE_REDIS_HOST': 'redis', 'CACHE_REDIS_PORT': os.getenv('REDIS_PORT'), 
+                            'CACHE_REDIS_HOST': os.getenv('REDIS_HOST'), 'CACHE_REDIS_PORT': os.getenv('REDIS_PORT'), 
                             'CACHE_REDIS_DB': os.getenv('REDIS_DBNAME'), 'CACHE_REDIS_PASSWORD': os.getenv('REDIS_PASSWORD'), 
                             'CACHE_KEY_PREFIX': 'product_'})
     
