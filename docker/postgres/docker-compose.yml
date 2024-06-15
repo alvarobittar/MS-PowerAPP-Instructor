@@ -1,19 +1,19 @@
 version: '3.3'
 services:
   postgresql:
-    image: postgres:latest
+    image: postgres:alpine3.19
 
     networks:
       - redinterna
     ports:
-    - "5433:5432"
+    - "5000:5432"
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ./_data:/var/lib/postgresql/data
+      - ./data/pgdata:/var/lib/postgresql/data
     restart: always
         
 networks:

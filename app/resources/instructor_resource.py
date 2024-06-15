@@ -5,8 +5,7 @@ from app.services.instructor_service import InstructorService
 from app.mapping.response_schema import ResponseSchema
 from app.mapping.instructor_schema import InstructorSchema
 from app.models.response_message import ResponseBuilder
-from app.services.gym_class_service import GymClassService
-from app.mapping.gym_class_schema import GymClassSchema
+
 
 instructor = Blueprint('instructor', __name__)
 instructor_schema = InstructorSchema()

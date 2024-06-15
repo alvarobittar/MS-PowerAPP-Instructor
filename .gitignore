@@ -1,6 +1,7 @@
 __pycache__
 .env
-docker/postgres/_data
+docker/postgres/data
 venv
 .vscode
 .pytest_cache
+migrations
